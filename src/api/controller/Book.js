@@ -1,11 +1,11 @@
-// var User = require('../model/Book');
+let BookService = require('../service/Book');
 
 exports.save = (req,res) => {
-    res.send('NOT IMPLEMENTED: save');
+    req.app.bookService.insert(req.body).then((result => res.send(result))).catch((err) => res.send(err));
 };
 
 exports.retrieve = (req,res) => {
-    res.send('NOT IMPLEMENTED: retrieve');
+    req.app.bookService.retrieve().then((result => res.send(result))).catch((err) => res.send(err));
 };
 
 exports.edit = (req,res) => {
