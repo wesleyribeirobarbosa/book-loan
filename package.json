@@ -1,0 +1,30 @@
+{
+  "name": "book-loan",
+  "version": "1.0.0",
+  "description": "Sistema de emprestimo de livros construido utilizando NodeJs",
+  "main": "server.js",
+  "scripts": {
+    "test": "test-app",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesleyribeirobarbosa/book-loan.git"
+  },
+  "keywords": [
+    "book-loan"
+  ],
+  "author": "Wesley Ribeiro Barbosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wesleyribeirobarbosa/book-loan/issues"
+  },
+  "homepage": "https://github.com/wesleyribeirobarbosa/book-loan#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^7.0.1"
+  }
+}
