@@ -7,6 +7,7 @@ const app = express();
 const UserService = require('./src/api/service/User');
 const BookService = require('./src/api/service/Book');
 const LendService = require('./src/api/service/Lend');
+const GoogleApiService = require('./src/api/service/GoogleApiService');
 
 app.use(express.json())
 app.use('/', router)
@@ -16,5 +17,6 @@ app.datasource = datasource(app);
 app.userService = new UserService(app);
 app.bookService = new BookService(app);
 app.lendService = new LendService(app);
+app.googleApiService = new GoogleApiService(app);
 
 module.exports = app;

@@ -23,13 +23,27 @@ class BookService {
     insert(object) {
         return new Promise ((resolve, reject) => {
             try {
-                this.app.datasource.models.Book.create(object)
-                    .then(result => resolve({"success":this.app.constants.bookRegisteredMsg}))
-                    .catch(err => {
-                        if (err.name == "SequelizeUniqueConstraintError") reject({"error":this.app.constants.bookExistsMsg});
-                        if (err.name == "SequelizeForeignKeyConstraintError") reject({"error":this.app.constants.userNotFoundMsg});
-                        else reject({"error":err});
-                    });
+
+
+
+                this.app.googleApiService.getBook(object.code)
+                    .then(response => {
+                        console.log(JSON.stringify(response))
+                        this.app.datasource.models.Book.create(object)
+                        .then(result => resolve({"success":this.app.constants.bookRegisteredMsg}))
+                        .catch(err => {
+                            if (err.name == "SequelizeUniqueConstraintError") reject({"error":this.app.constants.bookExistsMsg});
+                            if (err.name == "SequelizeForeignKeyConstraintError") reject({"error":this.app.constants.userNotFoundMsg});
+                            else reject({"error":err});
+                        });
+                    }).catch(err => reject({"error":err}));
+
+
+
+                
+
+
+
             } catch (err) {
                 reject({"error":err});
             }
