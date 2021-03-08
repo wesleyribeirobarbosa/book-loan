@@ -1,9 +1,16 @@
 const bookObject = (sequelize, DataTypes) => {
     const Book = sequelize.define('Book', {
-        name:{
+        isbn:{
             type: DataTypes.STRING,
             primaryKey: true,
             autoIncrement: false,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+        name:{
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -16,10 +23,6 @@ const bookObject = (sequelize, DataTypes) => {
         author: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        quantity: {
-            type: DataTypes.INTEGER,
-            allowNull: true
         }
     });
     return Book;

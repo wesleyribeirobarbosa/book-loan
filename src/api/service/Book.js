@@ -24,6 +24,19 @@ class BookService {
         });
     }
 
+    retrieveByIsbn(isbn) {
+        return new Promise((resolve, reject) => {
+            try {
+                this.Book.findAll({
+                                raw: true,
+                                where: {isbn: isbn}
+                            }).then(result => resolve(result)).catch((err) => reject(err));
+            } catch (err) {
+                reject({"error":err});
+            }
+        });
+    }
+
 };
 
 module.exports = BookService;
