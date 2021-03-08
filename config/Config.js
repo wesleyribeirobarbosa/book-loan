@@ -4,6 +4,7 @@ const config = {
     password: '',
     params: {
         dialect: 'sqlite',
+        logging: false,
         storage: './database.sqlite',
         define: {
             underscore: true
