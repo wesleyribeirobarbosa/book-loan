@@ -3,6 +3,8 @@ var Fs = require('fs');
 var Path = require('path');
 
 let database = null;
+
+//Load all models from models folder
 const loadModels = (sequelize) => {
     const dir = Path.join(__dirname, '../model')
     let models = [];
@@ -14,6 +16,7 @@ const loadModels = (sequelize) => {
     return models;
 }
 
+//Initializes the database
 const dbInit = (app) => {
     if(!database) {
         const config = app.config,
@@ -32,30 +35,31 @@ const dbInit = (app) => {
 
         database.models = loadModels(sequelize);
 
-        //Definindo relacionamentos
+        //Setting relationships
         const User = database.models.User;
         const Book = database.models.Book;
-        const Loan = database.models.Loan;
+        const Lend = database.models.Lend;
 
+        //(1,n)
         User.hasMany(Book, {
             foreignKey: {
                 allowNull: false
-            },
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
+            }
         });
         Book.belongsTo(User);
 
-        User.hasOne(Loan, {
+        //(1,1)
+        User.hasOne(Lend, {
             foreignKey: {
                 allowNull: false
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
         });
-        Loan.belongsTo(User);
+        Lend.belongsTo(User);
 
-        Book.hasOne(Loan, {
+        //(1,1)
+        Book.hasOne(Lend, {
             foreignKey: {
                 allowNull: false,
                 unique: true
@@ -63,9 +67,7 @@ const dbInit = (app) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
         });
-        Loan.belongsTo(Book);
-
-        //-----------------------------//
+        Lend.belongsTo(Book);
 
         sequelize.sync().then(() => {
             return database;

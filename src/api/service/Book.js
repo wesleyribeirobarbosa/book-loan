@@ -1,42 +1,98 @@
 class BookService {
     
     constructor(app) {
-        if(!this.Book) this.Book = app.datasource.models.Book;
+        if(!this.app) {
+            this.app = app;
+        }
     }
 
+    //Get all books from database
     retrieve() {
         return new Promise((resolve, reject) => {
             try {
-                this.Book.findAll().then(result => resolve(result)).catch((err) => reject(err));
+                this.app.datasource.models.Book.findAll()
+                    .then(result => resolve({"success":result}))
+                    .catch(err => reject({"error":err}));
             } catch (err) {
                 reject({"error":err});
             }
         });
     }
 
+    //Register a new book
     insert(object) {
         return new Promise ((resolve, reject) => {
             try {
-                this.Book.create(object).then(result => resolve(result)).catch((err) => reject(err));
+                this.app.datasource.models.Book.create(object)
+                    .then(result => resolve({"success":this.app.constants.bookRegisteredMsg}))
+                    .catch(err => {
+                        if (err.name == "SequelizeUniqueConstraintError") reject({"error":this.app.constants.bookExistsMsg});
+                        if (err.name == "SequelizeForeignKeyConstraintError") reject({"error":this.app.constants.userNotFoundMsg});
+                        else reject({"error":err});
+                    });
             } catch (err) {
                 reject({"error":err});
             }
         });
     }
 
-    retrieveByIsbn(isbn) {
+    //Get a book by code
+    retrieveByCode(code) {
         return new Promise((resolve, reject) => {
             try {
-                this.Book.findAll({
+                this.app.datasource.models.Book.findAll({
                                 raw: true,
-                                where: {isbn: isbn}
-                            }).then(result => resolve(result)).catch((err) => reject(err));
+                                where: {code: code}
+                            }).then(result => resolve(result))
+                            .catch(err => reject({"error":err}));
             } catch (err) {
                 reject({"error":err});
             }
         });
     }
 
+    //Get a book by owner
+    retrieveByOwner(email) {
+        return new Promise((resolve, reject) => {
+            try {
+                this.app.datasource.models.Book.findAll({
+                                raw: true,
+                                where: {UserEmail: email}
+                            }).then(result => resolve(result))
+                            .catch(err => reject({"error":err}));
+            } catch (err) {
+                reject({"error":err});
+            }
+        });
+    }
+
+    //Get all available books (books not lent)
+    retrieveAvailableBooks() {
+        return new Promise((resolve, reject) => {
+            try {
+                this.app.datasource.models.Book.findAll()
+                    .then(result => {
+                        this.app.lendService.retrieve()
+                            .then(resultLend => {
+                                if (!(resultLend.length > 0)) resolve({"success":result});
+                                else {
+                                    let auxArray = result;
+                                    auxArray.forEach(element => {
+                                        resultLend.forEach(elementLend => {
+                                            if (element.code == elementLend.BookCode) {
+                                                result.splice(auxArray.indexOf(element),1);
+                                            }
+                                        });
+                                    });
+                                    resolve(result);
+                                }
+                            }).catch(err => reject({"error":err}));
+                    }).catch(err => reject({"error":err}));
+            } catch (err) {
+                reject({"error":err});
+            }
+        });
+    }
 };
 
 module.exports = BookService;

@@ -1,17 +1,17 @@
 exports.save = (req,res) => {
-    req.app.bookService.insert(req.body)
+    req.app.lendService.insert(req.body)
         .then((result => res.send(result)))
         .catch((err) => res.send(err));
 };
 
 exports.retrieve = (req,res) => {
-    req.app.bookService.retrieve()
+    req.app.lendService.retrieve()
         .then((result => res.send(result)))
         .catch((err) => res.send(err));
 };
 
-exports.retrieveAvailableBooks = (req,res) => {
-    req.app.bookService.retrieveAvailableBooks()
+exports.remove = (req,res) => {
+    req.app.lendService.delete(req.body)
         .then((result => res.send(result)))
         .catch((err) => res.send(err));
 };

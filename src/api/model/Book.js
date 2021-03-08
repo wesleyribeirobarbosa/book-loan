@@ -1,6 +1,6 @@
 const bookObject = (sequelize, DataTypes) => {
     const Book = sequelize.define('Book', {
-        isbn:{
+        code:{
             type: DataTypes.STRING,
             primaryKey: true,
             autoIncrement: false,
