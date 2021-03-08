@@ -32,6 +32,41 @@ const dbInit = (app) => {
 
         database.models = loadModels(sequelize);
 
+        //Definindo relacionamentos
+        const User = database.models.User;
+        const Book = database.models.Book;
+        const Loan = database.models.Loan;
+
+        User.hasMany(Book, {
+            foreignKey: {
+                allowNull: false
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        });
+        Book.belongsTo(User);
+
+        User.hasOne(Loan, {
+            foreignKey: {
+                allowNull: false
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        });
+        Loan.belongsTo(User);
+
+        Book.hasOne(Loan, {
+            foreignKey: {
+                allowNull: false,
+                unique: true
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        });
+        Loan.belongsTo(Book);
+
+        //-----------------------------//
+
         sequelize.sync().then(() => {
             return database;
         });
