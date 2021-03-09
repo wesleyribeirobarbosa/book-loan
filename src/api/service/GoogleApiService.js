@@ -8,10 +8,20 @@ class GoogleApiService {
   getBook(object) {
     return new Promise((resolve, reject) => {
         try {
-          got(`https://www.googleapis.com/books/v1/volumes?q=${object}&key=${process.env.APIKEY}`)
+          got(`https://www.googleapis.com/books/v1/volumes?q=${object}&key=${process.env.APIKEY}`,{useJson: true})
           .then(response => {
-            console.log(response.body.items[0].volumeInfo.description);
-            resolve(response.body.items[0].volumeInfo.description);
+            let responseData = JSON.parse(response.body);
+            if(responseData.totalItems == 0) {
+              resolve(null);
+            };
+            let volumeInfo = responseData.items[0].volumeInfo;
+            let info = {
+              publisher: volumeInfo.publisher,
+              publishedDate: volumeInfo.publishedDate,
+              description: volumeInfo.description,
+              pageCount: volumeInfo.pageCount
+            };
+            resolve(info);
           }).catch(err => {
             reject({"error":err});
           });

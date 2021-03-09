@@ -23,6 +23,10 @@ const bookObject = (sequelize, DataTypes) => {
         author: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        info: {
+            type: DataTypes.JSON,
+            allowNull: true
         }
     });
     return Book;

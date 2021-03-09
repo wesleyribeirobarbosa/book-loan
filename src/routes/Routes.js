@@ -1,4 +1,4 @@
-var route = require('express').Router();
+const route = require('express').Router();
 
 const UserController = require('../api/controller/User');
 const BookController = require('../api/controller/Book');

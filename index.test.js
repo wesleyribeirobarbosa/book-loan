@@ -27,19 +27,12 @@ const emptyAgeUser = {
 };
 
 //Book
-const noCodeBook = {
-    code: "",
-    name: "Teste",
-    category: "Teste",
-    author: "Teste",
-    UserEmail: "teste@hotmail.com"
-};
-
 const noNameBook = {
     code: "123",
     name: "",
     category: "Teste",
     author: "Teste",
+    info: "",
     UserEmail: "teste@hotmail.com"
 };
 
@@ -73,17 +66,6 @@ test('User with no age must return null.', async() => {
         const data = await userService.insert(emptyAgeUser);
     } catch (err) {
         expect(err.error.errors[0].path).toEqual('age');
-    };
-    expect.assertions(1);
-});
-
-//Book creation with empty code
-test('Book with no code must return null.', async() => {
-     
-    try {
-        const data = await bookService.insert(noCodeBook);
-    } catch (err) {
-        expect(err.error.errors[0].path).toEqual('code');
     };
     expect.assertions(1);
 });

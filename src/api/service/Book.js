@@ -23,12 +23,11 @@ class BookService {
     insert(object) {
         return new Promise ((resolve, reject) => {
             try {
-
-
-
                 this.app.googleApiService.getBook(object.code)
                     .then(response => {
-                        console.log(JSON.stringify(response))
+                        if(response != null) {
+                            object.info = response;
+                        }
                         this.app.datasource.models.Book.create(object)
                         .then(result => resolve({"success":this.app.constants.bookRegisteredMsg}))
                         .catch(err => {
@@ -37,13 +36,6 @@ class BookService {
                             else reject({"error":err});
                         });
                     }).catch(err => reject({"error":err}));
-
-
-
-                
-
-
-
             } catch (err) {
                 reject({"error":err});
             }
