@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "2584509d-8939-4da5-8a6d-3e017a272da7",
+		"name": "BOOK_LOAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "http://localhost:49160/user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:49160/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:49160/user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"summersmith@hotmail.com\",\n    \"name\": \"Summer\",\n    \"surname\": \"Smith\",\n    \"age\": 18\n}"
+						},
+						"url": {
+							"raw": "http://localhost:49160/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:49160/user/by-email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jerrysmith@hotmail.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:49160/user/by-email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"user",
+								"by-email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "http://localhost:49160/book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:49160/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:49160/book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"9788542207415\",\n    \"name\": \"Porque fazemos o que fazemos\",\n    \"category\": \"Reflexao\",\n    \"author\": \"Mario Sergio Cortella\",\n    \"info\": \"\",\n    \"UserEmail\": \"summersmith@hotmail.com\"\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:49160/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:49160/book/available",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:49160/book/available",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"book",
+								"available"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lend",
+			"item": [
+				{
+					"name": "http://localhost:49160/lend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:49160/lend",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"lend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:49160/lend",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"UserEmail\": \"ricksanchez@hotmail.com\",\n    \"BookCode\": \"9788542207415\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:49160/lend",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"lend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:49160/lend",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"9788542207415\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:49160/lend",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49160",
+							"path": [
+								"lend"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -82,15 +82,18 @@ class BookService {
                             .then(resultLend => {
                                 if (!(resultLend.length > 0)) resolve({"success":result});
                                 else {
-                                    let auxArray = result;
-                                    auxArray.forEach(element => {
+                                    let iterator = 0;
+                                    let finalList = result.slice();
+                                    result.forEach(element => {
                                         resultLend.forEach(elementLend => {
                                             if (element.code == elementLend.BookCode) {
-                                                result.splice(auxArray.indexOf(element),1);
+                                                finalList.splice(result.indexOf(element)-iterator,1);
+                                                iterator++;
+                                                return;
                                             }
                                         });
                                     });
-                                    resolve(result);
+                                    resolve(finalList);
                                 }
                             }).catch(err => reject({"error":err}));
                     }).catch(err => reject({"error":err}));
